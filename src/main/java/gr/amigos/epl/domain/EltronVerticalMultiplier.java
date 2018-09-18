@@ -17,7 +17,7 @@ public enum EltronVerticalMultiplier {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
+    public String getValue() {
+        return String.valueOf(value);
     }
 }

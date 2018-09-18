@@ -1,27 +1,30 @@
 package gr.amigos.epl.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EltronLabel {
-    private List<EltronElement> eltronElements;
 
-    public EltronLabel(List<EltronElement> eltronElements) {
-        this.eltronElements = eltronElements;
+    private List<EltronBaseElement> eltronBaseElements;
+
+    public EltronLabel(List<EltronBaseElement> eltronBaseElements) {
+        this.eltronBaseElements = eltronBaseElements;
+    }
+
+    public EltronLabel(){
+        this.eltronBaseElements = new ArrayList<>();
     }
 
     public String getPrintCode() {
-        return eltronElements
+        return eltronBaseElements
                 .stream()
-                .map(EltronElement::getPrintCode)
-                .collect(Collectors.joining("\n"));
+                .map(EltronBaseElement::getPrintCode)
+                .collect(Collectors.joining("\n")).concat("\n");
     }
 
-    public List<EltronElement> getEltronElements() {
-        return eltronElements;
-    }
-
-    public void setEltronElements(List<EltronElement> eltronElements) {
-        this.eltronElements = eltronElements;
+    public EltronLabel addElement(EltronBaseElement eltronBaseElement){
+        this.eltronBaseElements.add(eltronBaseElement);
+        return this;
     }
 }

@@ -8,11 +8,12 @@ public enum EltronRotation {
     TWO_HUNDRED_SEVENTY_DEGREES(270);
 
     private int value;
-    EltronRotation(int value){
+
+    EltronRotation(int value) {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
+    public String getValue() {
+        return String.valueOf(value);
     }
 }

@@ -90,7 +90,8 @@ public enum EltronCommand {
     RESET_PRINTER("^@",EltronMemory.NONE),
     SET_PRINTER_TO_FACTORY_DEFAULTS("^default",EltronMemory.WRITES),
     STATUS_REPORT_IMMEDIATE("^ee",EltronMemory.NONE),
-    CODE_COMMENT_LINE(";",EltronMemory.FORM);
+    CODE_COMMENT_LINE(";",EltronMemory.FORM),
+    P1_END_LABEL("P1",EltronMemory.FORM);
 
     private String value;
     private EltronMemory eltronMemory;

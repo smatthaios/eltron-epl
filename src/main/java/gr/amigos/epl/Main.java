@@ -1,7 +1,7 @@
 package gr.amigos.epl;
 
 import gr.amigos.epl.domain.EltronCommand;
-import gr.amigos.epl.domain.EltronElement;
+import gr.amigos.epl.domain.EltronBaseElement;
 import gr.amigos.epl.domain.EltronFont;
 import gr.amigos.epl.domain.EltronHorizontalMultiplier;
 import gr.amigos.epl.domain.EltronLabel;
@@ -9,22 +9,30 @@ import gr.amigos.epl.domain.EltronReverseImage;
 import gr.amigos.epl.domain.EltronRotation;
 import gr.amigos.epl.domain.EltronVerticalMultiplier;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
-        EltronElement eltronElementA = new EltronElement(EltronCommand.ASCII_TEXT,10,20,EltronRotation.NO_ROTATION,EltronFont.FIVE,EltronHorizontalMultiplier.ONE,EltronVerticalMultiplier.ONE,EltronReverseImage.NORMAL,"Orestes");
-        EltronElement eltronElementB = new EltronElement(EltronCommand.BAR_CODE,65,43,EltronRotation.NO_ROTATION,EltronFont.FIVE,EltronHorizontalMultiplier.ONE,EltronVerticalMultiplier.ONE,EltronReverseImage.NORMAL,"SomeOtherStuff");
-        EltronElement eltronElementC = new EltronElement(EltronCommand.BLACK_LINE_SENSOR,10,20,EltronRotation.NO_ROTATION,EltronFont.ONE,EltronHorizontalMultiplier.THREE,EltronVerticalMultiplier.ONE,EltronReverseImage.NORMAL,"Stelios");
-        EltronElement eltronElementD = new EltronElement(EltronCommand.CANCEL_CUSTOMIZE_BAR_CODE,32,20,EltronRotation.NO_ROTATION,EltronFont.THREE,EltronHorizontalMultiplier.ONE,EltronVerticalMultiplier.ONE,EltronReverseImage.NORMAL,"Bill");
-        EltronElement eltronElementE = new EltronElement(EltronCommand.BOX_DRAW,12,76,EltronRotation.ONE_HUNDRED_EIGHTY_DEGREES,EltronFont.FIVE,EltronHorizontalMultiplier.ONE,EltronVerticalMultiplier.ONE,EltronReverseImage.NORMAL,"asda");
+    public static void main(String[] args) throws Exception {
+        EltronBaseElement startElement = new EltronBaseElement(EltronCommand.CLEAR_IMAGE_BUFFER);
+        EltronBaseElement formWidth = new EltronBaseElement(EltronCommand.SET_FORM_WIDTH).addParameter("400");
+        EltronBaseElement formLength = new EltronBaseElement(EltronCommand.SET_FORM_LENGTH).addParameter("199").addParameter("24+0");
+        EltronBaseElement density = new EltronBaseElement(EltronCommand.DENSITY).addParameter("10");
+        EltronBaseElement conan = new EltronBaseElement(EltronCommand.ASCII_TEXT).addParameter("20").addParameter("6")
+                .addParameter(EltronRotation.NO_ROTATION.getValue()).addParameter(EltronFont.ONE.getValue())
+                .addParameter(EltronHorizontalMultiplier.ONE.getValue()).addParameter(EltronVerticalMultiplier.ONE.getValue())
+                .addParameter(EltronReverseImage.NORMAL.getValue())
+                .addParameter("  COONABARABRAN RURAL  ");
+        EltronBaseElement part = new EltronBaseElement(EltronCommand.ASCII_TEXT).addParameter("18").addParameter("37")
+                .addParameter(EltronRotation.NO_ROTATION.getValue()).addParameter(EltronFont.ONE.getValue())
+                .addParameter(EltronHorizontalMultiplier.ONE.getValue()).addParameter(EltronVerticalMultiplier.ONE.getValue())
+                .addParameter(EltronReverseImage.NORMAL.getValue())
+                .addParameter("<PART>");
+        EltronBaseElement endLabel = new EltronBaseElement(EltronCommand.P1_END_LABEL);
 
-        List<EltronElement> eltronElements = Arrays.asList(eltronElementA,eltronElementB,eltronElementC,eltronElementD,eltronElementE);
 
-        EltronLabel eltronLabel = new EltronLabel(eltronElements);
+        EltronLabel eltronLabel = new EltronLabel().addElement(startElement).addElement(formWidth).addElement(formLength).addElement(density).addElement(conan).addElement(part).addElement(endLabel);
 
         System.out.println(eltronLabel.getPrintCode());
 
